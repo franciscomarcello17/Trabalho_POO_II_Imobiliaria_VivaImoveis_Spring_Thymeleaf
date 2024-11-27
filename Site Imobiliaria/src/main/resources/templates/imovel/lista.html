@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lista de Imóveis</title>
+</head>
+<body>
+
+<div th:fragment="body">
+  <h2>Imóveis Disponíveis</h2>
+  <table border="1" cellpadding="10">
+    <thead>
+    <tr>
+      <th>ID</th>
+      <th>Endereço</th>
+      <th>Preço</th>
+      <th>Tipo</th>
+      <th>Corretor</th>
+      <th>Detalhes</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="imovel : ${imoveis}">
+      <td th:text="${imovel.id}">ID</td>
+      <td th:text="${imovel.endereco}">Endereço</td>
+      <td th:text="${imovel.preco}">Preço</td>
+      <td th:text="${imovel.tipo}">Tipo</td>
+      <td th:text="${imovel.corretor.nome}">Corretor</td>
+      <td><a th:href="@{/imoveis/{id}(id=${imovel.id})}">Ver Detalhes</a></td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+</body>
+</html>

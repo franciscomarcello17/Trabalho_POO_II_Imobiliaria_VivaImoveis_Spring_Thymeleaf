@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cadastrar Imóvel</title>
+</head>
+<body>
+
+<div th:fragment="body">
+  <h2>Cadastrar Novo Imóvel</h2>
+  <form th:action="@{/imoveis}" th:object="${imovel}" method="post">
+    <label for="endereco">Endereço:</label>
+    <input type="text" id="endereco" th:field="*{endereco}" required/><br/><br/>
+
+    <label for="preco">Preço:</label>
+    <input type="text" id="preco" th:field="*{preco}" required/><br/><br/>
+
+    <label for="tipo">Tipo:</label>
+    <input type="text" id="tipo" th:field="*{tipo}" required/><br/><br/>
+
+    <label for="corretor">Corretor:</label>
+    <select id="corretor" th:field="*{corretor}" required>
+      <option th:each="corretor : ${corretores}" th:value="${corretor.id}" th:text="${corretor.nome}"></option>
+    </select><br/><br/>
+
+    <button type="submit">Salvar Imóvel</button>
+  </form>
+</div>
+
+</body>
+</html>
