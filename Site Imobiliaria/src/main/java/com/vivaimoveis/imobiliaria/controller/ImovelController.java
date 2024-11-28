@@ -23,14 +23,26 @@ public class ImovelController {
 
     @GetMapping("/comprar")
     public String mostrarImoveisVenda(Model model) {
-        List<Imovel> imoveis = imovelRepository.findAll();
+        // Busca apenas imóveis do tipo "venda"
+        List<Imovel> imoveisVenda = imovelRepository.findByTipo("venda");
 
-        // Passar os imóveis para o template Thymeleaf
-        model.addAttribute("imoveis", imoveis);
+        model.addAttribute("imoveis", imoveisVenda);
 
         // Retorna a página Thymeleaf chamada imoveis-venda.html
         return "imoveisavenda";
     }
+
+    @GetMapping("/alugar")
+    public String mostrarImoveisAluguel(Model model) {
+        // Busca apenas imóveis do tipo "aluguel"
+        List<Imovel> imoveisAluguel = imovelRepository.findByTipo("aluguel");
+
+        model.addAttribute("imoveis", imoveisAluguel);
+
+        // Retorna a página Thymeleaf chamada imoveis-aluguel.html
+        return "imoveisaluguel";
+    }
+
 
 
     @GetMapping("/detalhes/{id}")

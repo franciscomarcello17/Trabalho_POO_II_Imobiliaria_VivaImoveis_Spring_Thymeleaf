@@ -4,7 +4,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Imóveis à Venda - Viva Imóveis</title>
+  <title>Imóveis para Alugar - Viva Imóveis</title>
   <style>
     body {
         font-family: Arial, sans-serif;
@@ -196,7 +196,7 @@
 </header>
 
 <section class="catalog-section">
-  <h1 class="catalog-title">Imóveis à Venda</h1>
+  <h1 class="catalog-title">Imóveis para Alugar</h1>
   <div class="catalog-grid">
     <!-- Loop sobre os imóveis -->
     <div th:each="imovel : ${imoveis}" class="property-card">
@@ -238,8 +238,8 @@
     <ul>
       <li><strong>Serviços</strong></li>
       <li><a th:href="@{/login}">Login</a></li>
-      <li><a th:href="@{/imovel/comprar}">Comprar Imóvel</a></li>
-      <li><a th:href="@{/imovel/alugar}">Alugar Imóvel</a></li>
+      <li><a th:href="@{/imoveis/comprar}">Comprar Imóvel</a></li>
+      <li><a th:href="@{/imoveis/alugar}">Alugar Imóvel</a></li>
     </ul>
   </div>
   <div class="copyright">
