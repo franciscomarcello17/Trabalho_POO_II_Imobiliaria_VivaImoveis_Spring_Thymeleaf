@@ -55,7 +55,6 @@ nav ul li .login-btn {
     background-color: #0056B3; /* Cor de fundo azul */
     color: white; /* Cor do texto branca */
     font-weight: bold;
-    text-transform: uppercase; /* Deixa o texto maiúsculo */
 }
 
 /* Efeito de hover específico para o botão de Login */

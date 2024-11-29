@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Cadastro - Viva Imóveis</title>
+</head>
+<body>
+<form th:action="@{/cadastro}" method="post">
+    <div>
+        <label for="nome">Nome Completo:</label>
+        <input type="text" id="nome" name="nome" th:value="${usuario.nome}" required>
+    </div>
+    <div>
+        <label for="email">E-mail:</label>
+        <input type="email" id="email" name="email" th:value="${usuario.email}" required>
+    </div>
+    <div>
+        <label for="senha">Senha:</label>
+        <input type="password" id="senha" name="senha" required>
+    </div>
+    <div>
+        <label for="telefone">Telefone:</label>
+        <input type="text" id="telefone" name="telefone" th:value="${usuario.telefone}">
+    </div>
+    <button type="submit">Cadastrar</button>
+</form>
+</body>
+</html>

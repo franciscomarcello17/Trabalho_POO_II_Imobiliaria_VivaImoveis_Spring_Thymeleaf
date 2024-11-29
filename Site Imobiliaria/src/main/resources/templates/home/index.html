@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+<h1>Home</h1>
+<p>Área restrita para usuários logados. </p>
+<p>Bem vindo: <span sec:authentication="name"></span></p>
+
+<ol>
+    <li><a  th:href="@{/logout}">Deslogar</a></li>
+</ol>
+<div sec:authorize="isAuthenticated()">
+    Conteudo que somente é mostrado para usuários logados.
+</div>
+
+<div  sec:authorize="hasRole('ROLE_ADMIN')">
+    <p>usuário administrador está logado</p>
+</div>
+<div  sec:authorize="hasRole('ROLE_MANAGER')">
+    <p>usuário gerente está logado</p>
+</div>
+
+<div  sec:authorize="hasRole('ROLE_USER')">
+    <p>usuário comum está logado</p>
+</div>
+
+</body>
+</html>

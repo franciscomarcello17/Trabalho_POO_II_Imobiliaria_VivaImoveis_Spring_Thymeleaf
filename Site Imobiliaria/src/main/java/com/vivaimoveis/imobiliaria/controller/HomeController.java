@@ -1,7 +1,7 @@
 package com.vivaimoveis.imobiliaria.controller;
 
-import com.vivaimoveis.imobiliaria.model.Imovel;
-import com.vivaimoveis.imobiliaria.repository.ImovelRepository;
+import com.vivaimoveis.imobiliaria.core.entity.Imovel;
+import com.vivaimoveis.imobiliaria.core.repository.ImovelRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -33,5 +33,10 @@ public class HomeController {
     @GetMapping("/sobre") // Mapeia a URL raiz
     public String sobre() {
         return "sobre"; // Retorna a página index.html
+    }
+
+    @GetMapping("/home") // Mapeia a URL raiz
+    public String home() {
+        return "home/index"; // Retorna a página index.html
     }
 }
