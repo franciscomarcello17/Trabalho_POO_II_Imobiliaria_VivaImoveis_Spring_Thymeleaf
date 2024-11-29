@@ -30,4 +30,8 @@ public class HomeController {
 
         return "index"; // Retorna a página index.html
     }
+    @GetMapping("/sobre") // Mapeia a URL raiz
+    public String sobre() {
+        return "sobre"; // Retorna a página index.html
+    }
 }

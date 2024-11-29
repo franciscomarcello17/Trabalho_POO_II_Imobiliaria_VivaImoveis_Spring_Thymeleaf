@@ -1,0 +1,70 @@
+.catalog-section {
+    padding: 20px;
+    max-width: 1200px;
+    margin: auto;
+}
+
+.catalog-title {
+    text-align: center;
+    color: #003C80;
+    margin-bottom: 20px;
+}
+
+.catalog-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.property-card {
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s;
+}
+
+.property-card:hover {
+    transform: scale(1.05);
+}
+
+.property-image img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.property-info {
+    padding: 15px;
+}
+
+.property-info h3 {
+    color: #003C80;
+    margin: 5px 0;
+    font-size: 1.2em;
+}
+
+.property-info p {
+    margin: 5px 0;
+    font-size: 0.9em;
+    color: #555;
+}
+
+.btn-details {
+    margin-top: 10px;
+    padding: 10px 15px;
+    font-size: 0.9em;
+    background-color: #0056B3;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+    display: inline-block;
+}
+
+.btn-details:hover {
+    background-color: #003C80;
+}
