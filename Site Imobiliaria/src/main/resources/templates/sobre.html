@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-br">
+<head>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <link rel="stylesheet" th:href="@{/css/sobre.css}">
+  <link rel="stylesheet" th:href="@{/css/layout.css}">
+  <link rel="icon" type="image/x-icon" th:href="@{/images/favicon.ico}">
+  <meta charset="UTF-8">
+  <title>Sobre - Viva Imóveis</title>
+</head>
+<body>
+<div th:replace="~{layout :: header}"></div> <!-- Incluindo o header do layout -->
+
+<section th:fragment="content">
+  <!-- Hero Section com a história da empresa -->
+  <div class="hero">
+    <div class="hero-content">
+      <h1>Sobre a Viva Imóveis</h1>
+      <p>A Viva Imóveis nasceu da ideia de quatro jovens empreendedores que, enquanto ainda estavam na faculdade em Joinville, decidiram transformar a paixão por imóveis e a tecnologia em uma plataforma inovadora para compra e venda de imóveis.</p>
+      <p>Com o sonho de oferecer uma experiência simplificada e eficiente no setor imobiliário, a Viva Imóveis cresceu rapidamente, tornando-se uma referência no mercado de imóveis digitais, com uma equipe focada na inovação e na excelência em atendimento ao cliente.</p>
+    </div>
+  </div>
+
+  <!-- Seção de Fundadores -->
+  <section class="founders">
+    <h2>Nossos Fundadores</h2>
+    <div class="founders-list">
+      <div class="founder" onclick="window.location.href='https://www.linkedin.com/in/franciscomarcello/'">
+        <img src="images/founder1.jpg" alt="Francisco Lima">
+        <h3>Francisco Lima</h3>
+        <p><strong>Cargo:</strong> CTO & Cofundador</p>
+        <p>Francisco é o responsável pela parte técnica e pelo desenvolvimento da ideia inicial da Viva Imóveis. Ele é o arquiteto da plataforma, sempre focado em implementar soluções inovadoras e em usar a tecnologia para transformar a experiência do usuário no mercado imobiliário.</p>
+      </div>
+      <div class="founder" onclick="window.location.href='https://www.linkedin.com/in/artur-avila-1b6994214/'">
+        <img src="images/founder2.jpg" alt="Artur de Ávila">
+        <h3>Artur de Ávila</h3>
+        <p><strong>Cargo:</strong> Comercial & Cofundador</p>
+        <p>Artur lidera a estratégia comercial da Viva Imóveis. Ele é responsável por conduzir o crescimento da empresa através de parcerias estratégicas e pela expansão da plataforma para novos mercados. Sua visão focada em resultados comerciais tem sido fundamental para o sucesso da empresa.</p>
+      </div>
+      <div class="founder" onclick="window.location.href='https://www.linkedin.com/in/deivid-matos-b6a468279/'">
+        <img src="images/founder3.jpg" alt="Deivid Matos">
+        <h3>Deivid Matos</h3>
+        <p><strong>Cargo:</strong> Expansão & Cofundador</p>
+        <p>Deivid é o responsável pela expansão da Viva Imóveis e pelo crescimento estratégico da empresa. Ele tem se dedicado a expandir a presença da empresa para outras cidades e a explorar novas tecnologias para melhorar a experiência do cliente em diferentes mercados.</p>
+      </div>
+      <div class="founder" onclick="window.location.href='https://www.linkedin.com/in/rafael-soares-borba-aa66451b5/'">
+        <img src="images/founder4.jpg" alt="Rafael Borba">
+        <h3>Rafael Borba</h3>
+        <p><strong>Cargo:</strong> CFO & Cofundador</p>
+        <p>Rafael gerencia as finanças da Viva Imóveis, garantindo que a empresa tenha uma base financeira sólida e estável. Rafael aplica sua expertise em gestão e dados para otimizar a gestão financeira, sempre com foco no crescimento sustentável e no planejamento estratégico.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- História da Empresa -->
+  <section class="company-history">
+    <h2>A História da Viva Imóveis</h2>
+    <p>A Viva Imóveis foi fundada em 2018, na cidade de Joinville, por quatro jovens empreendedores que estavam na faculdade e perceberam uma grande oportunidade de inovação no setor imobiliário. Artur, Francisco, Rafael e Deivid decidiram usar suas habilidades complementares para criar uma plataforma tecnológica que facilitasse a compra, venda e aluguel de imóveis.</p>
+    <p>Nos primeiros anos, a Viva Imóveis foi um projeto paralelo, desenvolvido durante os estudos universitários. Com o sucesso da plataforma na faculdade, o time decidiu expandir a ideia para outras cidades e logo conquistou uma base de usuários fiel e crescente. A plataforma ganhou popularidade pela sua interface simples e eficiente, permitindo que qualquer pessoa pudesse comprar, vender ou alugar imóveis de maneira fácil e transparente.</p>
+    <p>Com o tempo, a Viva Imóveis se transformou em uma das principais empresas do setor imobiliário digital, com uma equipe dedicada e apaixonada por inovar. Hoje, continuamos a trabalhar para oferecer as melhores soluções no mercado imobiliário, com um foco constante em melhorar a experiência do cliente e em expandir nossos serviços para mais pessoas.</p>
+  </section>
+</section>
+
+<div th:replace="~{layout :: footer}"></div> <!-- Incluindo o footer do layout -->
+<div th:replace="~{layout :: script}"></div> <!-- Incluindo o back-to-top -->
+
+</body>
+</html>

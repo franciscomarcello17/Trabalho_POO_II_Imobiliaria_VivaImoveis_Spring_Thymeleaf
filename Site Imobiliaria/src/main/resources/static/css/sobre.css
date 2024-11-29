@@ -1,0 +1,146 @@
+/* Remover sublinhado e cor dos links dentro dos cards */
+.founder a {
+    text-decoration: none; /* Remove o sublinhado do link */
+    color: inherit; /* Mantém a cor original do texto */
+}
+
+/* Hero Section */
+.hero {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 50px;
+    background-color: #F4F9FF;
+    text-align: center;
+}
+
+.hero-content h1 {
+    font-size: 2.8em;
+    margin-bottom: 20px;
+    color: #003C80;
+    font-weight: bold;
+}
+
+.hero-content p {
+    font-size: 1.2em;
+    margin-bottom: 30px;
+    color: #7C8893;
+    line-height: 1.6;
+}
+
+/* Seção de Fundadores */
+.founders {
+    padding: 50px;
+    background-color: #F9FBFF;
+    text-align: center;
+}
+
+.founders h2 {
+    font-size: 2.5em;
+    color: #003C80;
+    margin-bottom: 40px;
+}
+
+.founders-list {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px; /* Diminui o espaçamento entre os cards */
+    flex-wrap: wrap;
+}
+
+.founder {
+    width: 20%; /* Reduzido para 20% para ajustar os cards */
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.founder:hover {
+    transform: scale(1.05);
+}
+
+.founder img {
+    width: 150px; /* Largura fixa */
+    height: 150px; /* Altura fixa */
+    object-fit: cover; /* Faz a imagem preencher o espaço sem distorcer */
+    border-radius: 10px; /* Bordas arredondadas */
+    margin-bottom: 15px;
+}
+
+.founder h3 {
+    font-size: 1.5em;
+    color: #003C80;
+    margin-bottom: 10px;
+}
+
+.founder p {
+    font-size: 1em;
+    color: #7C8893;
+    line-height: 1.4;
+}
+
+/* Remover sublinhado e cor dos links dentro do card */
+.founder a {
+    text-decoration: none; /* Remove o sublinhado do link */
+    color: inherit; /* Mantém a cor original do texto */
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .founders-list {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .founder {
+        width: 80%; /* 80% para dispositivos móveis */
+        margin-bottom: 30px;
+    }
+
+    .company-history p {
+        font-size: 1em;
+    }
+}
+
+/* História da Empresa */
+.company-history {
+    padding: 50px;
+    background-color: #F4F9FF;
+    text-align: center;
+}
+
+.company-history h2 {
+    font-size: 2.5em;
+    color: #003C80;
+    margin-bottom: 40px;
+}
+
+.company-history p {
+    font-size: 1.2em;
+    color: #7C8893;
+    line-height: 1.6;
+    margin-bottom: 30px;
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .founders-list {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .founder {
+        width: 80%;
+        margin-bottom: 30px;
+    }
+
+    .company-history p {
+        font-size: 1em;
+    }
+}

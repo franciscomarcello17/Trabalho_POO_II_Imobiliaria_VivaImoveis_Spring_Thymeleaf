@@ -1,30 +1,33 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="pt-br">
 <head>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Viva Imóveis</title>
-  <link rel="icon" type="image/png" sizes="32x32" th:href="@{/favicon.png}">
+  <title th:replace="${title}">Viva Imóveis</title>
   <link rel="stylesheet" th:href="@{/css/layout.css}">
 </head>
 <body>
-
 <header>
-  <img th:src="@{/images/logoheader.png}" alt="Viva Imóveis">
+  <a th:href="@{/}">
+    <img th:src="@{/images/logoheader.png}" alt="Viva Imóveis">
+  </a>
   <nav>
-    <ul>
+    <ul class="nav-menu">
       <li><a th:href="@{/}">Início</a></li>
       <li><a th:href="@{/sobre}">Sobre</a></li>
-      <li><a th:href="@{/servicos}">Serviços</a></li>
-      <li><a th:href="@{/contatos}">Contatos</a></li>
-      <li><a th:href="@{/login}">Login</a></li>
+      <li><a th:href="@{/contato}">Contato</a></li>
+      <li><a th:href="@{/administrativo}">Administrativo</a></li>
+      <li><a th:href="@{/perfil}">Perfil</a></li>
+      <li><a th:href="@{/login}" class="login-btn">Login</a></li> <!-- Botão de Login com classe especial -->
     </ul>
   </nav>
 </header>
 
-<!-- Este é o espaço para o conteúdo dinâmico da página -->
-<div th:fragment="bodyContent"></div>
+<main>
+  <section th:fragment="content"> <!-- Fragmento que será substituído -->
+    <p>Conteúdo padrão se nenhum fragmento for fornecido.</p>
+  </section>
+</main>
 
 <footer>
   <div class="footer-links">
@@ -32,23 +35,23 @@
       <h3>Viva Imóveis</h3>
       <p>"Transformando Sonhos Em Endereços: Encontre O Lugar Perfeito Com A Gente"</p>
       <div class="social-icons">
-        <a href="https://www.facebook.com" target="_blank"><i class="fab fa-facebook-f"></i></a>
-        <a href="https://www.instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
-        <a href="https://www.linkedin.com" target="_blank"><i class="fab fa-linkedin-in"></i></a>
-        <a href="https://www.twitter.com" target="_blank"><i class="fab fa-twitter"></i></a>
+        <a th:href="@{https://www.facebook.com}" target="_blank"><i class="fab fa-facebook-f"></i></a>
+        <a th:href="@{https://www.instagram.com}" target="_blank"><i class="fab fa-instagram"></i></a>
+        <a th:href="@{https://www.linkedin.com}" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+        <a th:href="@{https://www.twitter.com}" target="_blank"><i class="fab fa-twitter"></i></a>
       </div>
     </div>
     <ul>
       <li><strong>Links Rápidos</strong></li>
-      <li><a href="#">Início</a></li>
-      <li><a href="#">Sobre</a></li>
-      <li><a href="#">Relatórios</a></li>
+      <li><a th:href="@{/}">Início</a></li>
+      <li><a th:href="@{/sobre}">Sobre</a></li>
+      <li><a th:href="@{/contato}">Contato</a></li>
     </ul>
     <ul>
       <li><strong>Serviços</strong></li>
-      <li><a href="#">Login</a></li>
-      <li><a href="#">Comprar Imóvel</a></li>
-      <li><a href="#">Alugar Imóvel</a></li>
+      <li><a th:href="@{/login}">Login</a></li>
+      <li><a th:href="@{/imovel/comprar}">Comprar Imóvel</a></li>
+      <li><a th:href="@{/imovel/alugar}">Alugar Imóvel</a></li>
     </ul>
   </div>
   <div class="copyright">
@@ -56,5 +59,12 @@
   </div>
 </footer>
 
+<!-- Script para voltar pro topo ao recarregar pagina -->
+<script>
+  if ('scrollRestoration' in history) {
+      history.scrollRestoration = 'manual'; // Desativa a restauração automática da posição de rolagem
+  }
+  window.scrollTo(0, 0); // Garante que a página inicie no topo
+</script>
 </body>
 </html>
