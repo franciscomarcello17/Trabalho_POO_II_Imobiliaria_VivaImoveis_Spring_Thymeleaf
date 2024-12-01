@@ -12,7 +12,7 @@ public class LoginController {
 
     @GetMapping
     public ModelAndView index(){
-        return new ModelAndView("login/index");
+        return new ModelAndView("login");
     }
 
 }
