@@ -1,11 +1,13 @@
 package com.vivaimoveis.imobiliaria.core.entity;
 
 import jakarta.persistence.*;
-
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+
+import java.time.LocalDate;
+import java.time.Period;
 
 @Getter
 @Setter
@@ -13,15 +15,23 @@ import lombok.ToString;
 @ToString
 @Entity
 public class User {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    private String fullName;
+    private LocalDate birthDate;
     private String username;
-    private String name;
     private String password;
     private boolean active;
-    @OneToOne
+
+    @ManyToOne
     private UserRole role;
 
+    // Novo campo para o avatar do usuário
+    private String avatarUrl;  // Campo para armazenar a URL do avatar
+
+    public boolean isAdult() {
+        return Period.between(this.birthDate, LocalDate.now()).getYears() >= 18;
+    }
 }

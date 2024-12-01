@@ -1,32 +1,47 @@
-/*import com.vivaimoveis.imobiliaria.model.Usuario;
-import com.vivaimoveis.imobiliaria.service.UsuarioService;
+package com.vivaimoveis.imobiliaria.controller;
+
+import com.vivaimoveis.imobiliaria.core.entity.User;
+import com.vivaimoveis.imobiliaria.core.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.multipart.MultipartFile;
 
 @Controller
 public class CadastroController {
 
     @Autowired
-    private UsuarioService usuarioService;
+    private UserService userService;
 
     @GetMapping("/cadastro")
-    public String showCadastroForm(Model model) {
-        model.addAttribute("usuario", new Usuario());
-        return "cadastro";
+    public String showRegistrationForm(Model model) {
+        model.addAttribute("user", new User()); // Cria um objeto de User no modelo
+        return "cadastro"; // Retorna para o template de cadastro
     }
 
     @PostMapping("/cadastro")
-    public String registerUser(@ModelAttribute Usuario usuario, BindingResult result) {
-        if (result.hasErrors()) {
-            return "cadastro";
+    public String processRegistration(
+            @ModelAttribute User user,
+            @RequestParam("password") String password,
+            @RequestParam("confirmPassword") String confirmPassword,
+            @RequestParam("profilePicture") MultipartFile profilePicture,
+            Model model) {
+
+        // Verifica se as senhas coincidem
+        if (!password.equals(confirmPassword)) {
+            model.addAttribute("error", "As senhas não coincidem.");
+            return "cadastro"; // Se não coincidirem, retorna ao formulário com erro
         }
-        usuarioService.cadastrar(usuario);
-        return "redirect:/login";
+
+        user.setPassword(password); // Define a senha do usuário
+
+        // Chama o serviço para registrar o usuário
+        userService.registerUser(user, profilePicture);
+
+        return "redirect:/login"; // Após o sucesso, redireciona para a página de login
     }
 }
-*/

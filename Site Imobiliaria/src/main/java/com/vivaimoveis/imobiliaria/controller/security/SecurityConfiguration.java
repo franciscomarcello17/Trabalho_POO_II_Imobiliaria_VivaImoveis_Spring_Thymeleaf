@@ -54,7 +54,7 @@ public class SecurityConfiguration {
                 .formLogin()
                 .loginPage("/login")  // Página de login customizada
                 .permitAll()  // Permite o acesso a qualquer usuário
-                .defaultSuccessUrl("/home", true)  // Página de sucesso após o login
+                .defaultSuccessUrl("/", true)  // Página de sucesso após o login
                 .and()
                 .rememberMe()  // Lembrar o usuário
                 .and()
