@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="pt-br">
 <head>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <link rel="stylesheet" th:href="@{/css/login.css}">
+    <link rel="stylesheet" th:href="@{/css/cadastro.css}">
     <link rel="stylesheet" th:href="@{/css/layout.css}">
     <link rel="icon" type="image/x-icon" th:href="@{/images/favicon.ico}">
     <meta charset="UTF-8">
@@ -15,6 +15,11 @@
     <div class="login-card">
         <h1><i class="fas fa-user-plus"></i> Crie sua Conta</h1>
         <p>Preencha os campos abaixo para criar sua conta.</p>
+
+        <!-- Exibição de Mensagens de Erro -->
+        <div th:if="${error}" style="color: red; margin-bottom: 15px;">
+            <p th:text="${error}"></p>
+        </div>
 
         <!-- Formulário de Cadastro -->
         <form th:action="@{/cadastro}" method="post" enctype="multipart/form-data" class="login-form">

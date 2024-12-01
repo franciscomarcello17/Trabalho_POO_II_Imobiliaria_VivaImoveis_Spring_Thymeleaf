@@ -90,6 +90,10 @@
 .login-form .form-group + .form-group {
     margin-top: 15px;
 }
+/* Exemplo de estilo CSS para borda vermelha */
+.input-container input.error {
+    border: 2px solid red;
+}
 
 /* Botão "Cadastrar" em destaque */
 .login-form button {
@@ -122,6 +126,18 @@
 
 .register-link:hover {
     text-decoration: underline;
+}
+/* Adicionar borda vermelha e fundo leve nos campos com erro */
+.input-error {
+    border: 2px solid red;
+    background-color: #ffe6e6; /* Cor de fundo leve para erro */
+}
+
+/* Mensagens de erro */
+.error-message {
+    color: red;
+    font-size: 0.9em;
+    margin-top: 10px;
 }
 
 /* Responsividade */

@@ -37,10 +37,21 @@ public class CadastroController {
             return "cadastro"; // Se não coincidirem, retorna ao formulário com erro
         }
 
+        // Verifica se o usuário é maior de idade
+        if (!user.isAdult()) {
+            model.addAttribute("error", "Você precisa ter pelo menos 18 anos para se cadastrar.");
+            return "cadastro";
+        }
+
         user.setPassword(password); // Define a senha do usuário
 
-        // Chama o serviço para registrar o usuário
-        userService.registerUser(user, profilePicture);
+        try {
+            // Chama o serviço para registrar o usuário
+            userService.registerUser(user, profilePicture);
+        } catch (IllegalArgumentException e) {
+            model.addAttribute("error", e.getMessage()); // Mensagem de erro se a idade for inválida
+            return "cadastro"; // Retorna o erro para o template
+        }
 
         return "redirect:/login"; // Após o sucesso, redireciona para a página de login
     }

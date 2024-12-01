@@ -48,8 +48,10 @@ public class SecurityConfiguration {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.csrf().disable()
                 .authorizeRequests()
-                .requestMatchers("/login", "/").permitAll()  // Permitindo acesso a "/login" e "/"
-                .anyRequest().authenticated()  // Requer autenticação para outras requisições
+                // Permite o acesso às páginas especificadas
+                .requestMatchers("/", "/imovel/detalhes/**", "/cadastro", "/sobre", "/contato", "/contato/erro", "/contato/sucesso", "/contato/enviar", "/uploads/**", "/imovel/comprar", "/imovel/alugar").permitAll()
+                // Requer autenticação para outras requisições
+                .anyRequest().authenticated()
                 .and()
                 .formLogin()
                 .loginPage("/login")  // Página de login customizada
@@ -62,7 +64,7 @@ public class SecurityConfiguration {
                 .invalidateHttpSession(true)  // Invalida a sessão ao sair
                 .clearAuthentication(true)  // Limpa as credenciais do usuário
                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))  // Configuração do logout
-                .logoutSuccessUrl("/?logout")  // Redireciona após logout
+                .logoutSuccessUrl("/")  // Redireciona após logout
                 .permitAll();  // Permite logout para todos os usuários
 
         return http.build();
@@ -70,6 +72,6 @@ public class SecurityConfiguration {
 
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
-        return web -> web.debug(false).ignoring().requestMatchers("/css/**", "/js/**", "/img/**", "/lib/**", "/favicon.ico");
+        return web -> web.debug(false).ignoring().requestMatchers("/css/**", "/js/**", "/images/**", "/imagesimoveis/**", "/lib/**", "/favicon.ico");
     }
 }

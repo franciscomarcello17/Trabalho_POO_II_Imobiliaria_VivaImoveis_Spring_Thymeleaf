@@ -12,7 +12,6 @@ import java.nio.file.Paths;
 import java.util.UUID;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-
 @Service
 public class UserService {
 
@@ -23,7 +22,12 @@ public class UserService {
 
     private BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
-    public void registerUser(User user, MultipartFile profilePicture) {
+    public void registerUser(User user, MultipartFile profilePicture) throws IllegalArgumentException {
+        // Verifica se o usuário tem mais de 18 anos
+        if (!user.isAdult()) {
+            throw new IllegalArgumentException("Usuários menores de 18 anos não podem se cadastrar.");
+        }
+
         // Se houver uma foto de perfil, salvamos ela
         if (!profilePicture.isEmpty()) {
             try {
