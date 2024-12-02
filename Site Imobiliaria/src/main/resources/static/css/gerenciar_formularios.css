@@ -112,6 +112,7 @@ table {
 }
 
 table th, table td {
+    position: relative;
     padding: 4px 8px; /* Reduzido para diminuir a altura das linhas */
     text-align: left; /* Alinha o conteúdo à esquerda por padrão */
     border: 1px solid #E6E6E6;
@@ -126,8 +127,12 @@ table th:nth-child(5),
 table td:nth-child(5),  /* Urgência */
 table th:nth-child(6),
 table td:nth-child(6),  /* Situação */
+/* Estilo específico para as colunas de Data de Criação */
 table th:nth-child(7),
-table td:nth-child(7),  /* Data de Criação */
+table td:nth-child(7) {
+    text-align: center;
+    width: 160px; /* Aumentando o tamanho da coluna Data de Criação */
+}
 table th:nth-child(8),
 table td:nth-child(8) { /* Ações */
     text-align: center;
@@ -135,11 +140,8 @@ table td:nth-child(8) { /* Ações */
 }
 
 /* Estilo para as colunas Nome, Email e Assunto */
-table th:nth-child(2),
 table td:nth-child(2),  /* Nome */
-table th:nth-child(3),
 table td:nth-child(3),  /* Email */
-table th:nth-child(4),
 table td:nth-child(4) { /* Assunto */
     width: 250px; /* Aumenta o tamanho das colunas de Nome, Email e Assunto */
     text-align: left;
@@ -149,6 +151,24 @@ table td:nth-child(4) { /* Assunto */
 table th {
     background-color: #003C80;
     color: white;
+    text-align: center; /* Alinha todos os títulos no centro */
+
+}
+table th input {
+    width: 100%;
+    padding: 5px;
+    font-size: 0.875em;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    text-align: center; /* Alinha todos os títulos no centro */
+}
+
+/* Adicionar um pouco de espaçamento para evitar que o input encoste nas bordas */
+table th input:focus {
+    border-color: #0056B3;
+    outline: none;
 }
 
 /* Estilo de linha alternada */
@@ -311,4 +331,30 @@ button.alterar-situacao:hover {
     .modal-actions button {
         width: 100%;
     }
+}
+/* Estilo para o botão de Voltar dentro da célula "Ações" */
+.voltar-btn {
+    padding: 5px;
+    font-size: 0.875em;
+    background-color: #0078E7;
+    color: white;
+    border: 1px solid #0078E7;
+    border-radius: 3px;
+    cursor: pointer;
+    width: 100%; /* Faz o botão ocupar toda a largura da célula */
+    box-sizing: border-box; /* Inclui o padding no cálculo da largura */
+    margin-top: 5px; /* Espaçamento superior */
+    transition: background-color 0.3s ease;
+}
+
+.voltar-btn:hover {
+    background-color: #0056B3;
+}
+
+/* Ajustar a largura dos campos de filtro para ficarem no mesmo padrão */
+th input {
+    width: 100%; /* Campo de filtro ocupa toda a largura da célula */
+    padding: 5px;
+    font-size: 0.875em;
+    box-sizing: border-box;
 }

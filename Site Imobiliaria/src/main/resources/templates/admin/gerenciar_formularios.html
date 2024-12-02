@@ -19,14 +19,14 @@
             <table>
                 <thead>
                 <tr>
-                    <th>ID</th>
-                    <th>Nome</th>
-                    <th>Email</th>
-                    <th>Assunto</th>
-                    <th>Urgência</th>
-                    <th>Situação</th>
-                    <th>Data de Criação</th>
-                    <th>Ações</th>
+                    <th>ID <input type="text" id="filter-id" placeholder="Filtrar ID"></th>
+                    <th>Nome <input type="text" id="filter-nome" placeholder="Filtrar Nome"></th>
+                    <th>Email <input type="text" id="filter-email" placeholder="Filtrar Email"></th>
+                    <th>Assunto <input type="text" id="filter-assunto" placeholder="Filtrar Assunto"></th>
+                    <th>Urgência <input type="text" id="filter-urgencia" placeholder="Filtrar Urgência"></th>
+                    <th>Situação <input type="text" id="filter-situacao" placeholder="Filtrar Situação"></th>
+                    <th>Data de Criação <input type="text" id="filter-data-criacao" placeholder="Filtrar Data"></th>
+                    <th>Ações <button id="voltar-btn" class="voltar-btn" onclick="voltarPagina()">Voltar</button></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -50,7 +50,6 @@
                 </tbody>
             </table>
         </div>
-
     </div>
 </section>
 
@@ -92,6 +91,57 @@
 
 <!-- Script de Modal -->
 <script>
+    // Filtra as linhas da tabela com base nos filtros inseridos
+document.querySelectorAll('#filter-id, #filter-nome, #filter-email, #filter-assunto, #filter-urgencia, #filter-situacao, #filter-data-criacao')
+    .forEach(input => {
+        input.addEventListener('input', () => {
+            filterTable();
+        });
+    });
+
+function filterTable() {
+    const idFilter = document.getElementById('filter-id').value.toLowerCase();
+    const nomeFilter = document.getElementById('filter-nome').value.toLowerCase();
+    const emailFilter = document.getElementById('filter-email').value.toLowerCase();
+    const assuntoFilter = document.getElementById('filter-assunto').value.toLowerCase();
+    const urgenciaFilter = document.getElementById('filter-urgencia').value.toLowerCase();
+    const situacaoFilter = document.getElementById('filter-situacao').value.toLowerCase();
+    const dataCriacaoFilter = document.getElementById('filter-data-criacao').value.toLowerCase();
+
+    const rows = document.querySelectorAll('table tbody tr');
+
+    rows.forEach(row => {
+        const id = row.cells[0].textContent.toLowerCase();
+        const nome = row.cells[1].textContent.toLowerCase();
+        const email = row.cells[2].textContent.toLowerCase();
+        const assunto = row.cells[3].textContent.toLowerCase();
+        const urgencia = row.cells[4].textContent.toLowerCase();
+        const situacao = row.cells[5].textContent.toLowerCase();
+        const dataCriacao = row.cells[6].textContent.toLowerCase();
+
+        // Verifica se cada célula corresponde ao filtro
+        if (id.includes(idFilter) &&
+            nome.includes(nomeFilter) &&
+            email.includes(emailFilter) &&
+            assunto.includes(assuntoFilter) &&
+            urgencia.includes(urgenciaFilter) &&
+            situacao.includes(situacaoFilter) &&
+            dataCriacao.includes(dataCriacaoFilter)) {
+            row.style.display = ''; // Exibe a linha
+        } else {
+            row.style.display = 'none'; // Oculta a linha
+        }
+    });
+}
+
+// Função para voltar à página anterior
+function voltarPagina() {
+    window.history.back(); // Volta para a página anterior no histórico do navegador
+    // Ou você pode redirecionar para uma URL específica, caso prefira:
+    // window.location.href = '/pagina-anterior'; // Substitua '/pagina-anterior' pela URL desejada
+}
+
+
     // Abre o modal com as informações do formulário
     const detalhesBtns = document.querySelectorAll('.detalhes-btn');
     const modal = document.getElementById('detalhes-modal');
