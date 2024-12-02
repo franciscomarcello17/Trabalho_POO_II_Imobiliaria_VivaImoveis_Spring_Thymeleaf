@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Gerenciar Formulários - Viva Imóveis</title>
+    <link rel="stylesheet" th:href="@{/css/gerenciar_formularios.css}">
+    <link rel="stylesheet" th:href="@{/css/layout.css}">
+    <link rel="icon" type="image/x-icon" th:href="@{/images/favicon.ico}">
+</head>
+<body>
+<div th:replace="~{layout :: header}"></div> <!-- Incluindo o header do layout -->
+
+<section class="formulario-section">
+    <div class="formulario-card">
+        <h1>Gerenciar Formulários</h1>
+
+        <!-- Formulário de Filtro -->
+        <form th:action="@{/admin/formularios}" method="get">
+            <div class="nome-email"> <!-- Agrupando os campos Nome e Email -->
+                <div>
+                    <label for="id">ID do Chamado:</label>
+                    <input type="text" id="id" name="id" th:value="${id}" placeholder="Filtrar por ID">
+                </div>
+                <div>
+                    <label for="nome">Nome:</label>
+                    <input type="text" id="nome" name="nome" th:value="${nome}" placeholder="Filtrar por nome">
+                </div>
+                <div>
+                    <label for="email">Email:</label>
+                    <input type="text" id="email" name="email" th:value="${email}" placeholder="Filtrar por e-mail">
+                </div>
+                <!-- Botão de filtro ao lado do campo de email -->
+                <button type="submit">Filtrar</button>
+            </div>
+        </form>
+
+        <!-- Tabela de Formulários -->
+        <div class="tabela-wrapper">
+            <table>
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nome</th>
+                    <th>Email</th>
+                    <th>Assunto</th>
+                    <th>Urgência</th>
+                    <th>Situação</th>
+                    <th>Data de Criação</th>
+                    <th>Ações</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="formulario : ${formularios}">
+                    <td th:text="${formulario.id}"></td>
+                    <td th:text="${formulario.nome}"></td>
+                    <td th:text="${formulario.email}"></td>
+                    <td th:text="${formulario.assunto}"></td>
+                    <td th:text="${formulario.urgencia}"></td>
+                    <td th:text="${formulario.situacao}"></td>
+                    <td th:text="${#temporals.format(formulario.dataCriacao, 'dd/MM/yyyy HH:mm')}"></td>
+                    <td class="actions-cell">
+                        <button class="alterar-situacao" th:if="${formulario.situacao == T(com.vivaimoveis.imobiliaria.core.entity.Formulario$Situacao).INATIVO}" th:data-id="${formulario.id}">Ativar</button>
+                        <button class="alterar-situacao" th:if="${formulario.situacao == T(com.vivaimoveis.imobiliaria.core.entity.Formulario$Situacao).ATIVO}" th:data-id="${formulario.id}">Desativar</button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</section>
+
+<div th:replace="~{layout :: footer}"></div> <!-- Incluindo o footer do layout -->
+<div th:replace="~{layout :: script}"></div> <!-- Incluindo os scripts -->
+</body>
+</html>

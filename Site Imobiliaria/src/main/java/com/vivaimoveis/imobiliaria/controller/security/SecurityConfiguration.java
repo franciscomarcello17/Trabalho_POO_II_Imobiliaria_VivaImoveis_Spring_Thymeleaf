@@ -49,7 +49,7 @@ public class SecurityConfiguration {
         http.csrf().disable()
                 .authorizeRequests()
                 // Permite o acesso às páginas especificadas
-                .requestMatchers("/", "/imovel/detalhes/**", "/cadastro", "/sobre", "/contato", "/contato/erro", "/contato/sucesso", "/contato/enviar", "/uploads/**", "/imovel/comprar", "/imovel/alugar").permitAll()
+                .requestMatchers("/", "/imovel/detalhes/**", "/cadastro", "/sobre", "/contato", "/contato/erro", "/contato/sucesso", "/contato/enviar", "/uploads/**", "/imovel/comprar", "/imovel/alugar", "/admin/formulario/**").permitAll()
                 // Requer autenticação para outras requisições
                 .anyRequest().authenticated()
                 .and()
