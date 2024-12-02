@@ -1,14 +1,18 @@
 package com.vivaimoveis.imobiliaria.controller;
 
+import com.vivaimoveis.imobiliaria.core.dto.AtualizarSituacaoRequest;
 import com.vivaimoveis.imobiliaria.core.entity.Formulario.Situacao;
 import com.vivaimoveis.imobiliaria.core.entity.Formulario;
 import com.vivaimoveis.imobiliaria.core.repository.FormularioRepository;
 import com.vivaimoveis.imobiliaria.core.service.FormularioService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -31,7 +35,7 @@ public class FormularioController {
     // Exibir a tela de gerenciamento de formulários
     @GetMapping("/admin/formularios")
     public String listarFormularios(Model model,
-                                    @RequestParam(required = false) Long id,
+                                    @RequestParam(name = "id", required = false) Long id,
                                     @RequestParam(name = "nome", required = false) String nome,
                                     @RequestParam(name = "email", required = false) String email) {
 
@@ -44,7 +48,13 @@ public class FormularioController {
             // Caso contrário, filtra os formulários com base nos parâmetros
             formularios = formularioService.filtrarFormularios(nome, email, id);
         }
-        formularios.forEach(f -> f.setSituacao(Situacao.valueOf(f.getSituacao().name())));  // Converte para String
+        if (formularios != null) {
+            formularios.forEach(f -> {
+                if (f.getSituacao() == null) {
+                    f.setSituacao(Situacao.INATIVO);  // Atribui um valor default se necessário
+                }
+            });
+        }
         model.addAttribute("formularios", formularios);
         model.addAttribute("nome", nome);
         model.addAttribute("email", email);
@@ -52,16 +62,37 @@ public class FormularioController {
     }
 
     // Alterar o estado de um formulário (ATIVO/INATIVO)
-    @PostMapping("/admin/formulario/{id}/atualizar-situacao")
-    public String atualizarSituacao(@PathVariable (name = "id", required = false) Long id, @RequestParam Situacao situacao,
-                                    @RequestParam(name = "nome", required = false) String nome,
-                                    @RequestParam(name = "email", required = false) String email) {
+    @PostMapping("formulario/{id}/atualizar-situacao")
+    public ResponseEntity<?> atualizarSituacao(
+            @PathVariable("id") Long id,
+            @RequestBody AtualizarSituacaoRequest request) {
 
-        // Atualizando o estado do formulário
-        formularioService.atualizarSituacao(id, situacao);
+        // A lógica para atualizar a situação do formulário
+        Formulario formulario = formularioService.findById(id);
+        if (formulario != null) {
+            // Verifica se a situação é válida
+            try {
+                Situacao novaSituacao = Situacao.valueOf(request.getSituacao().toUpperCase()); // Convertendo para o valor enum
+                formulario.setSituacao(novaSituacao); // Atualiza a situação do formulário
+                formularioService.save(formulario);
+                return ResponseEntity.ok().build(); // Retorna sucesso
+            } catch (IllegalArgumentException e) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Situação inválida!"); // Caso a situação seja inválida
+            }
+        }
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Formulário não encontrado!"); // Caso o formulário não seja encontrado
+    }
 
-        // Redireciona com os parâmetros de filtro para manter a filtragem
-        return "redirect:/contato/admin/formularios?nome=" + nome + "&email=" + email + "&id=" + id;
+    // Excluir o formulário
+    @PostMapping("/formulario/{id}/excluir")
+    @ResponseBody
+    public ResponseEntity<String> excluirFormulario(@PathVariable("id") Long id) {
+        try {
+            formularioService.excluirFormulario(id);
+            return ResponseEntity.ok("Formulário excluído com sucesso");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro ao excluir o formulário");
+        }
     }
 
     // Enviar um novo formulário

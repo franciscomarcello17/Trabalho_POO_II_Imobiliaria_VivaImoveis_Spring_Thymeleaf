@@ -73,13 +73,19 @@
         </div>
 
         <div class="modal-actions">
-            <!-- Botão Ativar/Desativar -->
-
-            <button id="ativar-btn" class="alterar-situacao" th:if="${formulario.situacao == 'INATIVO'}" th:data-id="${formulario.id}">Ativar</button>
-            <button id="desativar-btn" class="alterar-situacao" th:if="${formulario.situacao == 'ATIVO'}" th:data-id="${formulario.id}">Desativar</button>
+            <!-- Botões de Ativar/Desativar -->
+            <button id="ativar-btn" class="alterar-situacao" onclick="atualizarSituacao(this)">
+                Ativar
+            </button>
+            <button id="desativar-btn" class="alterar-situacao" onclick="atualizarSituacao(this)">
+                Desativar
+            </button>
 
             <!-- Botão Excluir -->
-            <button id="excluir-btn" class="excluir-btn">Excluir</button>
+            <button id="excluir-btn" class="excluir-btn" onclick="excluirFormulario(this)">
+                Excluir
+            </button>
+
         </div>
     </div>
 </div>
@@ -90,10 +96,16 @@
     const detalhesBtns = document.querySelectorAll('.detalhes-btn');
     const modal = document.getElementById('detalhes-modal');
     const closeBtn = document.querySelector('.close-btn');
+    const excluirBtn = document.getElementById('excluir-btn');  // Botão de exclusão
+    const desativarBtn = document.getElementById('desativar-btn');  // Botão de exclusão
+    const ativarBtn = document.getElementById('ativar-btn');  // Botão de exclusão
+
 
     detalhesBtns.forEach(btn => {
         btn.addEventListener('click', (e) => {
-            const formulario = e.target;
+            const formulario = e.target; // O botão clicado
+
+            // Preenche o modal com os dados do formulário
             document.getElementById('modal-id').textContent = formulario.getAttribute('data-id');
             document.getElementById('modal-nome').textContent = formulario.getAttribute('data-nome');
             document.getElementById('modal-email').textContent = formulario.getAttribute('data-email');
@@ -103,6 +115,14 @@
             document.getElementById('modal-data-criacao').textContent = formulario.getAttribute('data-data-criacao');
             document.getElementById('modal-mensagem').textContent = formulario.getAttribute('data-mensagem');
 
+
+            // Atualiza o data-id do botão de excluirBtn, desativarBtn e ativarBtn com o ID do formulário
+            excluirBtn.setAttribute('data-id', formulario.getAttribute('data-id'));
+            desativarBtn.setAttribute('data-id', formulario.getAttribute('data-id'));
+            ativarBtn.setAttribute('data-id', formulario.getAttribute('data-id'));
+
+
+            // Exibe o modal
             modal.style.display = 'block';
         });
     });
@@ -119,21 +139,65 @@
         }
     });
 
-    // Ações dentro do modal (Ativar/Desativar/Excluir)
-    document.getElementById('ativar-btn').addEventListener('click', () => {
-        alert('Chamado ativado!');
-        modal.style.display = 'none';
-    });
+function atualizarSituacao(button) {
+    var id = button.getAttribute('data-id'); // Pegando o ID do formulário no botão
+    var situacao = button.textContent.trim().toUpperCase(); // 'Ativar' ou 'Desativar'
 
-    document.getElementById('desativar-btn').addEventListener('click', () => {
-        alert('Chamado desativado!');
-        modal.style.display = 'none';
-    });
+    // Mapeando o valor de "Ativar" ou "Desativar" para os valores esperados no backend
+    if (situacao === "ATIVAR") {
+        situacao = "ATIVO";
+    } else if (situacao === "DESATIVAR") {
+        situacao = "INATIVO";
+    }
 
-    document.getElementById('excluir-btn').addEventListener('click', () => {
-        alert('Chamado excluído!');
-        modal.style.display = 'none';
+    // Exemplo de requisição AJAX para atualizar a situação
+    fetch('/contato/formulario/' + id + '/atualizar-situacao', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json', // Enviar como JSON
+        },
+        body: JSON.stringify({
+            situacao: situacao // Passando a nova situação para o servidor
+        })
+    })
+    .then(response => {
+        if (response.ok) {
+            alert(situacao + ' realizado com sucesso!');
+            location.reload();  // Recarrega a página para refletir a mudança
+        } else {
+            alert('Erro ao atualizar a situação!');
+        }
+    })
+    .catch(error => {
+        console.error("Erro na requisição:", error);
+        alert('Erro inesperado!');
     });
+}
+
+function excluirFormulario(button) {
+    var id = button.getAttribute('data-id');  // Pega o ID do botão de exclusão
+
+    // Confirmação de exclusão
+    if (confirm('Tem certeza de que deseja excluir este formulário?')) {
+        // Exemplo de requisição AJAX para excluir o formulário
+        fetch('/contato/formulario/' + id + '/excluir', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json', // Enviar como JSON
+            }
+        })
+        .then(response => {
+            if (response.ok) {
+                alert('Formulário excluído com sucesso!');
+                location.reload();  // Recarrega a página para refletir a exclusão
+            } else {
+                alert('Erro ao excluir o formulário!');
+            }
+        });
+    }
+}
+
+
 </script>
 
 <div th:replace="~{layout :: footer}"></div> <!-- Incluindo o footer do layout -->
