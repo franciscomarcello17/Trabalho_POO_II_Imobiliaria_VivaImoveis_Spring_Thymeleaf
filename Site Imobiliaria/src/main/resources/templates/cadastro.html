@@ -50,6 +50,23 @@
                     <input type="text" id="username" name="username" placeholder="Escolha um nome de usuário" required>
                 </div>
             </div>
+
+            <!-- Campo de Seleção de Tipo de Usuário (Dropdown) -->
+            <div class="form-group">
+                <label for="userRole">Tipo de Usuário:</label>
+                <div class="input-container">
+                    <div class="icon-box">
+                        <i class="fas fa-user-shield"></i>
+                    </div>
+                    <!-- Exibindo as opções de tipos de usuário -->
+                    <select id="userRole" name="role" th:disabled="${not isAdmin}">
+                        <option value="ROLE_USER" th:selected="${not isAdmin}">Usuário</option>
+                        <option value="ROLE_MANAGER">Gerente</option>
+                        <option value="ROLE_ADMIN" th:selected="${isAdmin}">Administrador de Sistema</option>
+                    </select>
+                </div>
+            </div>
+
             <div class="form-group">
                 <label for="password">Senha:</label>
                 <div class="input-container">

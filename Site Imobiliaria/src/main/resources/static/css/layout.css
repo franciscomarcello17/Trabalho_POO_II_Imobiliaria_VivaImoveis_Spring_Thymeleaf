@@ -87,7 +87,7 @@ nav ul li .login-btn:hover {
 /* Avatar Button */
 .avatar-btn {
     display: inline-block;
-    width: 30px; /* Ajuste o tamanho do avatar */
+    width: 100px; /* Ajuste o tamanho do avatar */
     height: 30px;
     border-radius: 50%;
     overflow: hidden;
@@ -100,7 +100,6 @@ nav ul li .login-btn:hover {
 .avatar-btn .avatar {
     width: 100%;
     height: 100%;
-    object-fit: cover; /* Faz a imagem cobrir completamente o círculo */
     object-position: center; /* Garante que a imagem fique centralizada */
 }
 

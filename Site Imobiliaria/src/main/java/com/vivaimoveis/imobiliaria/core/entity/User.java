@@ -26,6 +26,7 @@ public class User {
     private boolean active;
 
     @ManyToOne
+    @JoinColumn(name = "role_id")  // Nome da coluna no banco que armazena a chave estrangeira
     private UserRole role;
 
     // Novo campo para o avatar do usuário
