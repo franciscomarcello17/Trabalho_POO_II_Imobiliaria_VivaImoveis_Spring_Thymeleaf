@@ -44,7 +44,7 @@ public class FormularioController {
             // Caso contrário, filtra os formulários com base nos parâmetros
             formularios = formularioService.filtrarFormularios(nome, email, id);
         }
-
+        formularios.forEach(f -> f.setSituacao(Situacao.valueOf(f.getSituacao().name())));  // Converte para String
         model.addAttribute("formularios", formularios);
         model.addAttribute("nome", nome);
         model.addAttribute("email", email);

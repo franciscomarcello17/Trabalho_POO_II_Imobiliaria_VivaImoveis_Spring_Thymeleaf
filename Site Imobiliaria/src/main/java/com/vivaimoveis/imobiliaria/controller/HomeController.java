@@ -40,8 +40,8 @@ public class HomeController {
         return "contato"; // Retorna a página contato.html
     }
 
-    @GetMapping("/home") // Mapeia a URL raiz
+    @GetMapping("/administrativo") // Mapeia a URL raiz
     public String home() {
-        return "home/index"; // Retorna a página index.html
+        return "admin/painel_administrativo"; // Retorna a página painel_administrativo.html
     }
 }

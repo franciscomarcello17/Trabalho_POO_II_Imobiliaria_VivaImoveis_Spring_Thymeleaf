@@ -14,26 +14,6 @@
     <div class="formulario-card">
         <h1>Gerenciar Formulários</h1>
 
-        <!-- Formulário de Filtro -->
-        <form th:action="@{/admin/formularios}" method="get">
-            <div class="nome-email"> <!-- Agrupando os campos Nome e Email -->
-                <div>
-                    <label for="id">ID do Chamado:</label>
-                    <input type="text" id="id" name="id" th:value="${id}" placeholder="Filtrar por ID">
-                </div>
-                <div>
-                    <label for="nome">Nome:</label>
-                    <input type="text" id="nome" name="nome" th:value="${nome}" placeholder="Filtrar por nome">
-                </div>
-                <div>
-                    <label for="email">Email:</label>
-                    <input type="text" id="email" name="email" th:value="${email}" placeholder="Filtrar por e-mail">
-                </div>
-                <!-- Botão de filtro ao lado do campo de email -->
-                <button type="submit">Filtrar</button>
-            </div>
-        </form>
-
         <!-- Tabela de Formulários -->
         <div class="tabela-wrapper">
             <table>
@@ -59,8 +39,12 @@
                     <td th:text="${formulario.situacao}"></td>
                     <td th:text="${#temporals.format(formulario.dataCriacao, 'dd/MM/yyyy HH:mm')}"></td>
                     <td class="actions-cell">
-                        <button class="alterar-situacao" th:if="${formulario.situacao == T(com.vivaimoveis.imobiliaria.core.entity.Formulario$Situacao).INATIVO}" th:data-id="${formulario.id}">Ativar</button>
-                        <button class="alterar-situacao" th:if="${formulario.situacao == T(com.vivaimoveis.imobiliaria.core.entity.Formulario$Situacao).ATIVO}" th:data-id="${formulario.id}">Desativar</button>
+                        <button class="detalhes-btn" th:data-id="${formulario.id}" th:data-nome="${formulario.nome}" th:data-email="${formulario.email}"
+                                th:data-assunto="${formulario.assunto}" th:data-urgencia="${formulario.urgencia}"
+                                th:data-situacao="${formulario.situacao}" th:data-data-criacao="${#temporals.format(formulario.dataCriacao, 'dd/MM/yyyy HH:mm')}"
+                                th:data-mensagem="${formulario.mensagem}">
+                            Detalhes
+                        </button>
                     </td>
                 </tr>
                 </tbody>
@@ -69,6 +53,88 @@
 
     </div>
 </section>
+
+<!-- Modal de Detalhes -->
+<div id="detalhes-modal" class="modal">
+    <div class="modal-content">
+        <span class="close-btn">&times;</span>
+        <h2>Detalhes do Chamado</h2>
+        <p><strong>ID:</strong> <span id="modal-id"></span></p>
+        <p><strong>Nome:</strong> <span id="modal-nome"></span></p>
+        <p><strong>Email:</strong> <span id="modal-email"></span></p>
+        <p><strong>Assunto:</strong> <span id="modal-assunto"></span></p>
+        <p><strong>Urgência:</strong> <span id="modal-urgencia"></span></p>
+        <p><strong>Situação:</strong> <span id="modal-situacao"></span></p>
+        <p><strong>Data de Criação:</strong> <span id="modal-data-criacao"></span></p>
+
+        <div class="modal-mensagem">
+            <h3>Mensagem:</h3>
+            <p id="modal-mensagem"></p>
+        </div>
+
+        <div class="modal-actions">
+            <!-- Botão Ativar/Desativar -->
+
+            <button id="ativar-btn" class="alterar-situacao" th:if="${formulario.situacao == 'INATIVO'}" th:data-id="${formulario.id}">Ativar</button>
+            <button id="desativar-btn" class="alterar-situacao" th:if="${formulario.situacao == 'ATIVO'}" th:data-id="${formulario.id}">Desativar</button>
+
+            <!-- Botão Excluir -->
+            <button id="excluir-btn" class="excluir-btn">Excluir</button>
+        </div>
+    </div>
+</div>
+
+<!-- Script de Modal -->
+<script>
+    // Abre o modal com as informações do formulário
+    const detalhesBtns = document.querySelectorAll('.detalhes-btn');
+    const modal = document.getElementById('detalhes-modal');
+    const closeBtn = document.querySelector('.close-btn');
+
+    detalhesBtns.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            const formulario = e.target;
+            document.getElementById('modal-id').textContent = formulario.getAttribute('data-id');
+            document.getElementById('modal-nome').textContent = formulario.getAttribute('data-nome');
+            document.getElementById('modal-email').textContent = formulario.getAttribute('data-email');
+            document.getElementById('modal-assunto').textContent = formulario.getAttribute('data-assunto');
+            document.getElementById('modal-urgencia').textContent = formulario.getAttribute('data-urgencia');
+            document.getElementById('modal-situacao').textContent = formulario.getAttribute('data-situacao');
+            document.getElementById('modal-data-criacao').textContent = formulario.getAttribute('data-data-criacao');
+            document.getElementById('modal-mensagem').textContent = formulario.getAttribute('data-mensagem');
+
+            modal.style.display = 'block';
+        });
+    });
+
+    // Fecha o modal
+    closeBtn.addEventListener('click', () => {
+        modal.style.display = 'none';
+    });
+
+    // Fecha o modal quando clicar fora da janela modal
+    window.addEventListener('click', (e) => {
+        if (e.target === modal) {
+            modal.style.display = 'none';
+        }
+    });
+
+    // Ações dentro do modal (Ativar/Desativar/Excluir)
+    document.getElementById('ativar-btn').addEventListener('click', () => {
+        alert('Chamado ativado!');
+        modal.style.display = 'none';
+    });
+
+    document.getElementById('desativar-btn').addEventListener('click', () => {
+        alert('Chamado desativado!');
+        modal.style.display = 'none';
+    });
+
+    document.getElementById('excluir-btn').addEventListener('click', () => {
+        alert('Chamado excluído!');
+        modal.style.display = 'none';
+    });
+</script>
 
 <div th:replace="~{layout :: footer}"></div> <!-- Incluindo o footer do layout -->
 <div th:replace="~{layout :: script}"></div> <!-- Incluindo os scripts -->
