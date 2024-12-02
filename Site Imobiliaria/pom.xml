@@ -9,6 +9,16 @@
 		<version>3.3.5</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
+	<repositories>
+		<repository>
+			<id>spring-releases</id>
+			<url>https://repo.spring.io/release</url>
+		</repository>
+		<repository>
+			<id>spring-milestones</id>
+			<url>https://repo.spring.io/milestone</url>
+		</repository>
+	</repositories>
 
 	<groupId>com.vivaimoveis</groupId>
 	<artifactId>imobiliaria</artifactId>
@@ -79,6 +89,7 @@
 		<dependency>
 			<groupId>org.thymeleaf.extras</groupId>
 			<artifactId>thymeleaf-extras-springsecurity5</artifactId>
+			<version>3.1.0.RELEASE</version> <!-- ou a versão mais recente -->
 		</dependency>
 
 		<!-- DevTools para Desenvolvimento -->
